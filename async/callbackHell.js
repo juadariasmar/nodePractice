@@ -1,5 +1,4 @@
-function functionAsync(name, callback) {
-  console.log("hello, i'm a async function");
+function hello(name, callback) {
   setTimeout(() => {
     console.log("Hello, " + name);
     callback(name);
@@ -20,8 +19,24 @@ function bye(name, otherCallback) {
   }, 1000);
 }
 
+function conversation(name, times, callback) {
+  if (times >= 0) {
+    speak(() => {
+      conversation(name, --times, callback);
+    });
+  } else {
+    bye(name, callback);
+  }
+}
+
 console.log("Init process");
-functionAsync("Juan", (name) => {
+hello("Juan", (name) => {
+  conversation(name, 3, () => {
+    console.log("Process finish");
+  });
+});
+
+/* hello("Juan", (name) => {
   speak(() => {
     speak(() => {
       speak(() => {
@@ -31,4 +46,4 @@ functionAsync("Juan", (name) => {
       });
     });
   });
-});
+}); */
