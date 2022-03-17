@@ -6,6 +6,13 @@ function functionAsync(name, callback) {
   }, 1000);
 }
 
+function speak(callbackSpeak) {
+  setTimeout(() => {
+    console.log("Hi Hi Hi");
+    callbackSpeak();
+  }, 1000);
+}
+
 function bye(name, otherCallback) {
   setTimeout(() => {
     console.log("Bye, " + name);
@@ -14,9 +21,14 @@ function bye(name, otherCallback) {
 }
 
 console.log("Init process");
-
 functionAsync("Juan", (name) => {
-  bye("Juan", () => {
-    console.log("finish process");
+  speak(() => {
+    speak(() => {
+      speak(() => {
+        bye("Juan", () => {
+          console.log("finish process");
+        });
+      });
+    });
   });
 });
